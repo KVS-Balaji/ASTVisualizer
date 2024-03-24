@@ -1,0 +1,243 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DIVIDE
+    LPAREN
+    RPAREN
+    TIMES
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statements
+Rule 2     statements -> statement
+Rule 3     statements -> statements statement
+Rule 4     statement -> IDENTIFIER ASSIGN expression
+Rule 5     statement -> expression
+Rule 6     expression -> expression PLUS term
+Rule 7     expression -> expression MINUS term
+Rule 8     expression -> term
+Rule 9     term -> NUMBER
+Rule 10    term -> IDENTIFIER
+
+Terminals, with rules where they appear
+
+ASSIGN               : 4
+DIVIDE               : 
+IDENTIFIER           : 4 10
+LPAREN               : 
+MINUS                : 7
+NUMBER               : 9
+PLUS                 : 6
+RPAREN               : 
+TIMES                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 4 5 6 7
+program              : 0
+statement            : 2 3
+statements           : 1 3
+term                 : 6 7 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statements
+    (2) statements -> . statement
+    (3) statements -> . statements statement
+    (4) statement -> . IDENTIFIER ASSIGN expression
+    (5) statement -> . expression
+    (6) expression -> . expression PLUS term
+    (7) expression -> . expression MINUS term
+    (8) expression -> . term
+    (9) term -> . NUMBER
+    (10) term -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 4
+    NUMBER          shift and go to state 7
+
+    program                        shift and go to state 1
+    statements                     shift and go to state 2
+    statement                      shift and go to state 3
+    expression                     shift and go to state 5
+    term                           shift and go to state 6
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statements .
+    (3) statements -> statements . statement
+    (4) statement -> . IDENTIFIER ASSIGN expression
+    (5) statement -> . expression
+    (6) expression -> . expression PLUS term
+    (7) expression -> . expression MINUS term
+    (8) expression -> . term
+    (9) term -> . NUMBER
+    (10) term -> . IDENTIFIER
+
+    $end            reduce using rule 1 (program -> statements .)
+    IDENTIFIER      shift and go to state 4
+    NUMBER          shift and go to state 7
+
+    statement                      shift and go to state 8
+    expression                     shift and go to state 5
+    term                           shift and go to state 6
+
+state 3
+
+    (2) statements -> statement .
+
+    IDENTIFIER      reduce using rule 2 (statements -> statement .)
+    NUMBER          reduce using rule 2 (statements -> statement .)
+    $end            reduce using rule 2 (statements -> statement .)
+
+
+state 4
+
+    (4) statement -> IDENTIFIER . ASSIGN expression
+    (10) term -> IDENTIFIER .
+
+    ASSIGN          shift and go to state 9
+    PLUS            reduce using rule 10 (term -> IDENTIFIER .)
+    MINUS           reduce using rule 10 (term -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 10 (term -> IDENTIFIER .)
+    NUMBER          reduce using rule 10 (term -> IDENTIFIER .)
+    $end            reduce using rule 10 (term -> IDENTIFIER .)
+
+
+state 5
+
+    (5) statement -> expression .
+    (6) expression -> expression . PLUS term
+    (7) expression -> expression . MINUS term
+
+    IDENTIFIER      reduce using rule 5 (statement -> expression .)
+    NUMBER          reduce using rule 5 (statement -> expression .)
+    $end            reduce using rule 5 (statement -> expression .)
+    PLUS            shift and go to state 10
+    MINUS           shift and go to state 11
+
+
+state 6
+
+    (8) expression -> term .
+
+    PLUS            reduce using rule 8 (expression -> term .)
+    MINUS           reduce using rule 8 (expression -> term .)
+    IDENTIFIER      reduce using rule 8 (expression -> term .)
+    NUMBER          reduce using rule 8 (expression -> term .)
+    $end            reduce using rule 8 (expression -> term .)
+
+
+state 7
+
+    (9) term -> NUMBER .
+
+    PLUS            reduce using rule 9 (term -> NUMBER .)
+    MINUS           reduce using rule 9 (term -> NUMBER .)
+    IDENTIFIER      reduce using rule 9 (term -> NUMBER .)
+    NUMBER          reduce using rule 9 (term -> NUMBER .)
+    $end            reduce using rule 9 (term -> NUMBER .)
+
+
+state 8
+
+    (3) statements -> statements statement .
+
+    IDENTIFIER      reduce using rule 3 (statements -> statements statement .)
+    NUMBER          reduce using rule 3 (statements -> statements statement .)
+    $end            reduce using rule 3 (statements -> statements statement .)
+
+
+state 9
+
+    (4) statement -> IDENTIFIER ASSIGN . expression
+    (6) expression -> . expression PLUS term
+    (7) expression -> . expression MINUS term
+    (8) expression -> . term
+    (9) term -> . NUMBER
+    (10) term -> . IDENTIFIER
+
+    NUMBER          shift and go to state 7
+    IDENTIFIER      shift and go to state 12
+
+    expression                     shift and go to state 13
+    term                           shift and go to state 6
+
+state 10
+
+    (6) expression -> expression PLUS . term
+    (9) term -> . NUMBER
+    (10) term -> . IDENTIFIER
+
+    NUMBER          shift and go to state 7
+    IDENTIFIER      shift and go to state 12
+
+    term                           shift and go to state 14
+
+state 11
+
+    (7) expression -> expression MINUS . term
+    (9) term -> . NUMBER
+    (10) term -> . IDENTIFIER
+
+    NUMBER          shift and go to state 7
+    IDENTIFIER      shift and go to state 12
+
+    term                           shift and go to state 15
+
+state 12
+
+    (10) term -> IDENTIFIER .
+
+    PLUS            reduce using rule 10 (term -> IDENTIFIER .)
+    MINUS           reduce using rule 10 (term -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 10 (term -> IDENTIFIER .)
+    NUMBER          reduce using rule 10 (term -> IDENTIFIER .)
+    $end            reduce using rule 10 (term -> IDENTIFIER .)
+
+
+state 13
+
+    (4) statement -> IDENTIFIER ASSIGN expression .
+    (6) expression -> expression . PLUS term
+    (7) expression -> expression . MINUS term
+
+    IDENTIFIER      reduce using rule 4 (statement -> IDENTIFIER ASSIGN expression .)
+    NUMBER          reduce using rule 4 (statement -> IDENTIFIER ASSIGN expression .)
+    $end            reduce using rule 4 (statement -> IDENTIFIER ASSIGN expression .)
+    PLUS            shift and go to state 10
+    MINUS           shift and go to state 11
+
+
+state 14
+
+    (6) expression -> expression PLUS term .
+
+    PLUS            reduce using rule 6 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 6 (expression -> expression PLUS term .)
+    IDENTIFIER      reduce using rule 6 (expression -> expression PLUS term .)
+    NUMBER          reduce using rule 6 (expression -> expression PLUS term .)
+    $end            reduce using rule 6 (expression -> expression PLUS term .)
+
+
+state 15
+
+    (7) expression -> expression MINUS term .
+
+    PLUS            reduce using rule 7 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 7 (expression -> expression MINUS term .)
+    IDENTIFIER      reduce using rule 7 (expression -> expression MINUS term .)
+    NUMBER          reduce using rule 7 (expression -> expression MINUS term .)
+    $end            reduce using rule 7 (expression -> expression MINUS term .)
+
