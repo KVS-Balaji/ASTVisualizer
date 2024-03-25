@@ -13,7 +13,6 @@ def print_ast(node, indent=0):
         print_ast(child, indent + 2)
 
 print_ast(result)
-
 ast_json = json.dumps(result.to_json(), indent=2)
 
 print(ast_json)

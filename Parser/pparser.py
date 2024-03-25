@@ -66,10 +66,8 @@ def p_term_identifier(p):
 def p_error(p):
     if p:
         print("Syntax error at token", p.type)
-        # Just discard the token and tell the parser it's okay.
         parser.errok()
     else:
         print("Syntax error at EOF")
 
-# Build the parser
 parser = yacc.yacc() 

@@ -3,9 +3,14 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     DIVIDE
+    ELSE
+    FOR
+    IF
     LPAREN
     RPAREN
+    THEN
     TIMES
+    WHILE
 
 Grammar
 
@@ -25,13 +30,18 @@ Terminals, with rules where they appear
 
 ASSIGN               : 4
 DIVIDE               : 
+ELSE                 : 
+FOR                  : 
 IDENTIFIER           : 4 10
+IF                   : 
 LPAREN               : 
 MINUS                : 7
 NUMBER               : 9
 PLUS                 : 6
 RPAREN               : 
+THEN                 : 
 TIMES                : 
+WHILE                : 
 error                : 
 
 Nonterminals, with rules where they appear
