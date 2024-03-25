@@ -36,7 +36,7 @@ function App() {
 
     // Dimensions
     const width = 900;
-    const height = 500;
+    const height = 600;
 
     // Create the SVG canvas
     const svg = d3
