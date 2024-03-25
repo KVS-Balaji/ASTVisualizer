@@ -4,33 +4,27 @@ import "./App.css";
 
 function App() {
   const astData = {
-    type: "Program",
-    value: null,
+    type: "Assignment",
+    value: "=",
     children: [
       {
-        type: "Assignment",
-        value: "=",
+        type: "Identifier",
+        value: "a",
+        children: [],
+      },
+      {
+        type: "Operator",
+        value: "+",
         children: [
           {
-            type: "Identifier",
-            value: "a",
+            type: "Number",
+            value: 10,
             children: [],
           },
           {
-            type: "Operator",
-            value: "+",
-            children: [
-              {
-                type: "Number",
-                value: 10,
-                children: [],
-              },
-              {
-                type: "Number",
-                value: 5,
-                children: [],
-              },
-            ],
+            type: "Number",
+            value: 5,
+            children: [],
           },
         ],
       },
