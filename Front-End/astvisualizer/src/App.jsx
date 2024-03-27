@@ -35,7 +35,7 @@ function App() {
     if (!astData) return;
 
     // Dimensions
-    const width = 900;
+    const width = 600;
     const height = 700;
 
     // Create the SVG canvas
