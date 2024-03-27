@@ -41,7 +41,6 @@ t_OR              = r'or'
 t_NOT             = r'not'
 t_COMMA           = r'\,'
 t_COLON       = r':'
-t_ignore = r' '
 
 def t_FLOAT(t):
     r'\d+\.\d+' 
@@ -66,21 +65,40 @@ def t_NUMBER(t):
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+    if t.lexer.lineno > 1: 
+        t.lexer.column = 0
+
 
 def t_ASSIGN(t):
     r'='
     return t
 
 def t_INDENT(t):
-   r'\t'
-   pass
+    r'\t'
+    t.lexer.column += 4
+    print("INDENT DETECTED")
+    if t.lexer.column > t.lexer.last_indent:
+        t.lexer.indents.append(t.lexer.column)  # Push onto the indent stack
+        t.type = "INDENT"    
+    else:
+        while t.lexer.indents and t.lexer.column < t.lexer.indents[-1]:
+            t.lexer.indents.pop()  # Pop from the indent stack 
+            t.type = "DEDENT" 
+    t.lexer.last_indent = t.lexer.column
+    return t
 
 def t_DEDENT(t):
    r'CHANGE_IN_DEDENTATION'
    pass
+
+def initialize_lexer_state(lexer):
+    lexer.column = 0            # Current column position
+    lexer.last_indent = 0        # Last indentation level
+    lexer.indents = []  
 
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
 lexer = lex.lex()
+initialize_lexer_state(lexer)

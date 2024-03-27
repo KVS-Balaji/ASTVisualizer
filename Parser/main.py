@@ -9,6 +9,8 @@ lexer.input(data)
 
 for tok in lexer:
     print(tok)
+    if tok.type == 'INDENT':
+        print("Indent level:", len(lexer.indents), "- Column:", tok.lexer.column)
 
 # result = parser.parse(data, lexer=lexer) 
 
@@ -19,5 +21,8 @@ for tok in lexer:
 
 # print_ast(result)
 # ast_json = json.dumps(result.to_json(), indent=2)
+
+# with open('./ast.json', 'w') as jsonf:
+#     jsonf.write(ast_json)
 
 # print(ast_json)

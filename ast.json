@@ -1,0 +1,33 @@
+{
+    "type": "Program",
+    "value": null,
+    "children": [
+      {
+        "type": "Assignment",
+        "value": "=",
+        "children": [
+          {
+            "type": "Identifier",
+            "value": "a",
+            "children": []
+          },
+          {
+            "type": "Operator",
+            "value": "+",
+            "children": [
+              {
+                "type": "Number",
+                "value": 10,
+                "children": []
+              },
+              {
+                "type": "Number",
+                "value": 5,
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
