@@ -1,7 +1,6 @@
 import ply.yacc as yacc
 from lexer import tokens
 
-# AST Node class
 class Node:
     def __init__(self, type, children=None, value=None):
         self.type = type
