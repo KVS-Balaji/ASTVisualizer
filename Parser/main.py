@@ -5,14 +5,19 @@ import json
 with open('./test.py', 'r') as f:
     data = f.read()
 
-result = parser.parse(data, lexer=lexer) 
+lexer.input(data)
 
-def print_ast(node, indent=0):
-    print(' ' * indent + node.type)
-    for child in node.children:
-        print_ast(child, indent + 2)
+for tok in lexer:
+    print(tok)
 
-print_ast(result)
-ast_json = json.dumps(result.to_json(), indent=2)
+# result = parser.parse(data, lexer=lexer) 
 
-print(ast_json)
+# def print_ast(node, indent=0):
+#     print(' ' * indent + node.type)
+#     for child in node.children:
+#         print_ast(child, indent + 2)
+
+# print_ast(result)
+# ast_json = json.dumps(result.to_json(), indent=2)
+
+# print(ast_json)

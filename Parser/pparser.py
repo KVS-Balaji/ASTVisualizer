@@ -18,8 +18,6 @@ class Node:
             'children': [child.to_json() for child in self.children] 
         }
 
-# Grammar Rules with AST Generation
-
 def p_program(p):
     '''program : statements'''
     p[0] = Node('Program', p[1])  
