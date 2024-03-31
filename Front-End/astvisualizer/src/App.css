@@ -1,0 +1,41 @@
+*{
+ /* border : 1px solid  black;   */
+margin: 0;
+}
+*:hover {outline:1px solid red;}
+.App {
+    display: flex;
+  }
+  
+#input-area {
+width: 50%;
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+
+  }
+
+  #input-area textarea {
+    font-size: 25px;
+    width: 100%;
+    height: 80%;
+    resize: none;
+  }
+
+  #input-area button{
+    background-color: #6CB42B;
+    color: white;
+    border: 10px solid #6CB42B;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    margin-bottom: 10px;
+    
+  }
+  
+  .tree-area {
+   display: flex;
+  }
+  
