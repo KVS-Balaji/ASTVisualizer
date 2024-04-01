@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ASSIGN COLON COMMA DEDENT DIVIDE ELSE EQUALS FALSE FLOAT FOR GREATERTHAN GREATERTHANEQUAL IDENTIFIER IF INDENT LESSTHAN LESSTHANEQUAL LPAREN MINUS NONE NOT NOTEQUAL NUMBER OR PLUS PRINT RPAREN STRING THEN TIMES TRUE WHILEprogram : statementsstatements : statement\n                  | statements statement statement : IDENTIFIER ASSIGN expressionstatement : expressionexpression : expression PLUS termexpression : expression MINUS termexpression : termterm : NUMBERterm : IDENTIFIER'
+_lr_signature = 'AND ASSIGN COLON COMMA DEDENT DIVIDE ELSE EQ EQUALS EXCLAMATION FALSE FLOAT FOR GE GREATERTHAN GREATERTHANEQUAL GT IDENTIFIER IF INDENT LE LESSTHAN LESSTHANEQUAL LPAREN LT MINUS NE NONE NOT NOTEQUAL NUMBER OR PLUS PRINT RPAREN SEMICOLON STRING THEN TIMES TRUE WHILEprogram : statementsstatement : IDENTIFIER ASSIGN expressionstatement : expressionterm : NUMBERterm : IDENTIFIERstatements : statement\n                  | statements statementstatement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block\n                 | WHILE LPAREN expression RPAREN blockstatement : IF LPAREN expression RPAREN block ELSE block\n                 | IF LPAREN expression RPAREN blockblock : INDENT statements DEDENTexpression : expression EQ expression\n                 | expression NE expression\n                 | expression LT expression\n                 | expression GT expression\n                 | expression LE expression\n                 | expression GE expressionexpression : expression TIMES term\n                | expression DIVIDE term\n                | expression PLUS term\n                | expression MINUS term\n                | term'
     
-_lr_action_items = {'IDENTIFIER':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,],[4,4,-2,-10,-5,-8,-9,-3,12,12,12,-10,-4,-6,-7,]),'NUMBER':([0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,],[7,7,-2,-10,-5,-8,-9,-3,7,7,7,-10,-4,-6,-7,]),'$end':([1,2,3,4,5,6,7,8,12,13,14,15,],[0,-1,-2,-10,-5,-8,-9,-3,-10,-4,-6,-7,]),'ASSIGN':([4,],[9,]),'PLUS':([4,5,6,7,12,13,14,15,],[-10,10,-8,-9,-10,10,-6,-7,]),'MINUS':([4,5,6,7,12,13,14,15,],[-10,11,-8,-9,-10,11,-6,-7,]),}
+_lr_action_items = {'IDENTIFIER':([0,2,3,4,5,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,41,45,46,47,48,49,52,53,55,],[4,4,-6,-5,-3,-23,-4,-7,26,26,26,26,26,26,26,26,26,26,26,26,26,26,-5,-2,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,26,-9,4,-11,26,4,-12,-10,-8,]),'FOR':([0,2,3,4,5,9,10,11,26,27,28,29,30,31,32,33,34,35,36,37,45,46,47,49,52,53,55,],[6,6,-6,-5,-3,-23,-4,-7,-5,-2,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,-9,6,-11,6,-12,-10,-8,]),'WHILE':([0,2,3,4,5,9,10,11,26,27,28,29,30,31,32,33,34,35,36,37,45,46,47,49,52,53,55,],[7,7,-6,-5,-3,-23,-4,-7,-5,-2,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,-9,7,-11,7,-12,-10,-8,]),'IF':([0,2,3,4,5,9,10,11,26,27,28,29,30,31,32,33,34,35,36,37,45,46,47,49,52,53,55,],[8,8,-6,-5,-3,-23,-4,-7,-5,-2,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,-9,8,-11,8,-12,-10,-8,]),'NUMBER':([0,2,3,4,5,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,41,45,46,47,48,49,52,53,55,],[10,10,-6,-5,-3,-23,-4,-7,10,10,10,10,10,10,10,10,10,10,10,10,10,10,-5,-2,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,10,-9,10,-11,10,10,-12,-10,-8,]),'$end':([1,2,3,4,5,9,10,11,26,27,28,29,30,31,32,33,34,35,36,37,45,47,52,53,55,],[0,-1,-6,-5,-3,-23,-4,-7,-5,-2,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,-9,-11,-12,-10,-8,]),'DEDENT':([3,4,5,9,10,11,26,27,28,29,30,31,32,33,34,35,36,37,45,47,49,52,53,55,],[-6,-5,-3,-23,-4,-7,-5,-2,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,-9,-11,52,-12,-10,-8,]),'ASSIGN':([4,],[12,]),'EQ':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,13,-23,-4,-5,13,13,13,13,13,13,13,-19,-20,-21,-22,13,13,13,13,13,]),'NE':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,14,-23,-4,-5,14,14,14,14,14,14,14,-19,-20,-21,-22,14,14,14,14,14,]),'LT':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,15,-23,-4,-5,15,15,15,15,15,15,15,-19,-20,-21,-22,15,15,15,15,15,]),'GT':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,16,-23,-4,-5,16,16,16,16,16,16,16,-19,-20,-21,-22,16,16,16,16,16,]),'LE':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,17,-23,-4,-5,17,17,17,17,17,17,17,-19,-20,-21,-22,17,17,17,17,17,]),'GE':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,18,-23,-4,-5,18,18,18,18,18,18,18,-19,-20,-21,-22,18,18,18,18,18,]),'TIMES':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,19,-23,-4,-5,19,19,19,19,19,19,19,-19,-20,-21,-22,19,19,19,19,19,]),'DIVIDE':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,20,-23,-4,-5,20,20,20,20,20,20,20,-19,-20,-21,-22,20,20,20,20,20,]),'PLUS':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,21,-23,-4,-5,21,21,21,21,21,21,21,-19,-20,-21,-22,21,21,21,21,21,]),'MINUS':([4,5,9,10,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,51,],[-5,22,-23,-4,-5,22,22,22,22,22,22,22,-19,-20,-21,-22,22,22,22,22,22,]),'LPAREN':([6,7,8,],[23,24,25,]),'SEMICOLON':([9,10,26,28,29,30,31,32,33,34,35,36,37,38,44,],[-23,-4,-5,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,41,48,]),'RPAREN':([9,10,26,28,29,30,31,32,33,34,35,36,37,39,40,51,],[-23,-4,-5,-13,-14,-15,-16,-17,-18,-19,-20,-21,-22,42,43,54,]),'INDENT':([42,43,50,54,],[46,46,46,46,]),'ELSE':([47,52,],[50,-12,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'statements':([0,],[2,]),'statement':([0,2,],[3,8,]),'expression':([0,2,9,],[5,5,13,]),'term':([0,2,9,10,11,],[6,6,6,14,15,]),}
+_lr_goto_items = {'program':([0,],[1,]),'statements':([0,46,],[2,49,]),'statement':([0,2,46,49,],[3,11,3,11,]),'expression':([0,2,12,13,14,15,16,17,18,23,24,25,41,46,48,49,],[5,5,27,28,29,30,31,32,33,38,39,40,44,5,51,5,]),'term':([0,2,12,13,14,15,16,17,18,19,20,21,22,23,24,25,41,46,48,49,],[9,9,9,9,9,9,9,9,9,34,35,36,37,9,9,9,9,9,9,9,]),'block':([42,43,50,54,],[45,47,53,55,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,14 +27,27 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> statements','program',1,'p_program','pparser.py',22),
-  ('statements -> statement','statements',1,'p_statements','pparser.py',26),
-  ('statements -> statements statement','statements',2,'p_statements','pparser.py',27),
-  ('statement -> IDENTIFIER ASSIGN expression','statement',3,'p_statement_assign','pparser.py',34),
-  ('statement -> expression','statement',1,'p_statement_expr','pparser.py',38),
-  ('expression -> expression PLUS term','expression',3,'p_expression_plus','pparser.py',42),
-  ('expression -> expression MINUS term','expression',3,'p_expression_minus','pparser.py',46),
-  ('expression -> term','expression',1,'p_expression_term','pparser.py',50),
-  ('term -> NUMBER','term',1,'p_term_number','pparser.py',54),
-  ('term -> IDENTIFIER','term',1,'p_term_identifier','pparser.py',58),
+  ('program -> statements','program',1,'p_program','pparser.py',21),
+  ('statement -> IDENTIFIER ASSIGN expression','statement',3,'p_statement_assign','pparser.py',33),
+  ('statement -> expression','statement',1,'p_statement_expr','pparser.py',37),
+  ('term -> NUMBER','term',1,'p_term_number','pparser.py',41),
+  ('term -> IDENTIFIER','term',1,'p_term_identifier','pparser.py',45),
+  ('statements -> statement','statements',1,'p_statements','pparser.py',49),
+  ('statements -> statements statement','statements',2,'p_statements','pparser.py',50),
+  ('statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block','statement',9,'p_statement_loop','pparser.py',54),
+  ('statement -> WHILE LPAREN expression RPAREN block','statement',5,'p_statement_loop','pparser.py',55),
+  ('statement -> IF LPAREN expression RPAREN block ELSE block','statement',7,'p_statement_if','pparser.py',69),
+  ('statement -> IF LPAREN expression RPAREN block','statement',5,'p_statement_if','pparser.py',70),
+  ('block -> INDENT statements DEDENT','block',3,'p_block','pparser.py',83),
+  ('expression -> expression EQ expression','expression',3,'p_expression_comparison','pparser.py',89),
+  ('expression -> expression NE expression','expression',3,'p_expression_comparison','pparser.py',90),
+  ('expression -> expression LT expression','expression',3,'p_expression_comparison','pparser.py',91),
+  ('expression -> expression GT expression','expression',3,'p_expression_comparison','pparser.py',92),
+  ('expression -> expression LE expression','expression',3,'p_expression_comparison','pparser.py',93),
+  ('expression -> expression GE expression','expression',3,'p_expression_comparison','pparser.py',94),
+  ('expression -> expression TIMES term','expression',3,'p_expression','pparser.py',98),
+  ('expression -> expression DIVIDE term','expression',3,'p_expression','pparser.py',99),
+  ('expression -> expression PLUS term','expression',3,'p_expression','pparser.py',100),
+  ('expression -> expression MINUS term','expression',3,'p_expression','pparser.py',101),
+  ('expression -> term','expression',1,'p_expression','pparser.py',102),
 ]

@@ -22,8 +22,9 @@ tokens = [
     'LESSTHANEQUAL', 'GREATERTHANEQUAL',
     'AND', 'OR', 'NOT',
     'STRING',
-    'COMMA', 'COLON', 
+    'COMMA', 'COLON', 'SEMICOLON', 
     'INDENT', 'DEDENT', 
+    'EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCLAMATION',
 ] + list(reserved.values())
 
 t_PLUS    = r'\+'
@@ -41,6 +42,16 @@ t_OR              = r'or'
 t_NOT             = r'not'
 t_COMMA           = r'\,'
 t_COLON       = r':'
+t_SEMICOLON = r';'
+t_EQ = r'=='
+t_NE = r'!='
+t_LT = r'<'
+t_GT = r'>'
+t_LE = r'<='
+t_GE = r'>='
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_EXCLAMATION = r'\!'
 
 def t_FLOAT(t):
     r'\d+\.\d+' 
@@ -48,7 +59,7 @@ def t_FLOAT(t):
     return t
 
 def t_STRING(t):
-    r'\'([^"\\]|\\[\s\S])*\'' 
+    r'"([^"]*)"'
     t.value = t.value[1:-1] 
     return t
 
@@ -63,29 +74,42 @@ def t_NUMBER(t):
     return t
 
 def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
-    if t.lexer.lineno > 1: 
-        t.lexer.column = 0
+  r'\n+' 
+  t.lexer.lineno += len(t.value)
+  t.lexer.column = 0 
 
 
 def t_ASSIGN(t):
     r'='
     return t
 
+# def t_INDENT(t):
+#     r'\t'
+#     t.lexer.column += 4
+#     print("INDENT DETECTED")
+#     if t.lexer.column > t.lexer.last_indent:
+#         t.lexer.indents.append(t.lexer.column)  # Push onto the indent stack
+#         t.type = "INDENT"    
+#     else:
+#         while t.lexer.indents and t.lexer.column < t.lexer.indents[-1]:
+#             t.lexer.indents.pop()  # Pop from the indent stack 
+#             t.type = "DEDENT" 
+#     t.lexer.last_indent = t.lexer.column
+#     return t
+
 def t_INDENT(t):
-    r'\t'
-    t.lexer.column += 4
-    print("INDENT DETECTED")
-    if t.lexer.column > t.lexer.last_indent:
-        t.lexer.indents.append(t.lexer.column)  # Push onto the indent stack
-        t.type = "INDENT"    
-    else:
-        while t.lexer.indents and t.lexer.column < t.lexer.indents[-1]:
-            t.lexer.indents.pop()  # Pop from the indent stack 
-            t.type = "DEDENT" 
-    t.lexer.last_indent = t.lexer.column
-    return t
+  r'[ \t]+'  # Match one or more spaces or tabs
+  t.lexer.column += len(t.value)
+  print("INDENT DETECTED")
+  # No further processing needed for simple space handling (commented out)
+  # if t.lexer.column > t.lexer.last_indent:
+  #   t.lexer.indents.append(t.lexer.column)  # Push onto the indent stack
+  #   t.type = "INDENT"
+  # else:
+  #   # Handle de-indent logic if needed later
+  #   pass
+  t.lexer.last_indent = t.lexer.column  # Update last indent position
+  return None 
 
 def t_DEDENT(t):
    r'CHANGE_IN_DEDENTATION'
