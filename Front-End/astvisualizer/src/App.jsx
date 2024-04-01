@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as d3 from "d3";
 import "./App.css";
 
@@ -77,34 +77,40 @@ const App = () => {
     const rootNode = d3.hierarchy(astData);
     const treeData = treeLayout(rootNode);
 
-    const links = g
-      .selectAll(".link")
-      .data(treeData.links());
+    const links = g.selectAll(".link").data(treeData.links());
 
     const linkEnter = links
       .enter()
       .append("path")
       .attr("class", "link")
-      .attr("d", d3.linkVertical()
-      .x(d => d.x)
-      .y(d => d.y)
+      .attr(
+        "d",
+        d3
+          .linkVertical()
+          .x((d) => d.x)
+          .y((d) => d.y)
       );
 
-      linkEnter
-      .merge(links)
-      .attr("d", d3.linkVertical().x(d => d.x).y(d => d.y));
-      links.exit().remove();
+    linkEnter.merge(links).attr(
+      "d",
+      d3
+        .linkVertical()
+        .x((d) => d.x)
+        .y((d) => d.y)
+    );
+    links.exit().remove();
 
     const nodes = g
       .selectAll(".node")
-      .data(treeData.descendants(),  d => d.data.id);
-      const nodeEnter = nodes
+      .data(treeData.descendants(), (d) => d.data.id);
+    const nodeEnter = nodes
       .enter()
       .append("g")
       .attr("class", "node")
-      .attr("transform", d => `translate(${d.x},${d.y})`);
+      .attr("transform", (d) => `translate(${d.x},${d.y})`);
 
-    nodeEnter.append("circle")
+    nodeEnter
+      .append("circle")
       .attr("r", 20)
       .attr("fill", "white")
       .attr("stroke", "black");
@@ -114,53 +120,53 @@ const App = () => {
       .attr("dy", "0.35em")
       .attr("font-size", "25px")
       .style("text-anchor", "middle")
-      .text(d => d.data.value || "");
+      .text((d) => d.data.value || "");
 
-    nodeEnter.append("title")
-    .text(d =>  d.data.type + (d.data.value ? ": " + d.data.value : ""));
+    nodeEnter
+      .append("title")
+      .text((d) => d.data.type + (d.data.value ? ": " + d.data.value : ""));
 
-     
-  // Add expand/collapse functionality
-  nodeEnter.on("click", (event, d) => {
-    if (d.children) {
-      d.children = null;
-    } else {
-      d.children = d.data.children;
-    }
-    update(treeData);
-  });
+    // Add expand/collapse functionality
+    nodeEnter.on("click", (event, d) => {
+      if (d.children) {
+        d.children = null;
+      } else {
+        d.children = d.data.children;
+      }
+      update(treeData);
+    });
 
-  function update(source) {
-    const node = source.descendants();
-    const link = source.links();
+    function update(source) {
+      const node = source.descendants();
+      const link = source.links();
 
-    links.data(link)
-      .attr("d", d3.linkVertical()
-        .x(d => d.x)
-        .y(d => d.y)
+      links.data(link).attr(
+        "d",
+        d3
+          .linkVertical()
+          .x((d) => d.x)
+          .y((d) => d.y)
       );
 
-    nodes.data(node, d => d.data.id)
-      .attr("transform", d => `translate(${d.x},${d.y})`)
+      nodes
+        .data(node, (d) => d.data.id)
+        .attr("transform", (d) => `translate(${d.x},${d.y})`);
 
-    nodes.exit()
-      .remove();
-  }
+      nodes.exit().remove();
+    }
   }, [astData]);
 
   return (
     <div className="App">
       <div id="input-area">
-       <button onClick={handleGenerateAST}>Run</button>
+        <button onClick={handleGenerateAST}>Run</button>
         <textarea
           value={code}
           onChange={handleCodeChange}
           placeholder="Enter Python code :)"
         />
       </div>
-      <div id="tree-area">
-      
-      </div>
+      <div id="tree-area"></div>
     </div>
   );
 };
