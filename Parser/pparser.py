@@ -63,7 +63,7 @@ def p_term_identifier(p):
 def p_error(p):
     if p:
         print("Syntax error at token", p.type)
-        parser.errok()
+        parser.error()
     else:
         print("Syntax error at EOF")
 
