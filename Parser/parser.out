@@ -5,17 +5,11 @@ Unused terminals:
     AND
     COLON
     COMMA
-    EQUALS
     EXCLAMATION
     FALSE
     FLOAT
-    GREATERTHAN
-    GREATERTHANEQUAL
-    LESSTHAN
-    LESSTHANEQUAL
     NONE
     NOT
-    NOTEQUAL
     OR
     PRINT
     STRING
@@ -59,28 +53,22 @@ DEDENT               : 12
 DIVIDE               : 20
 ELSE                 : 10
 EQ                   : 13
-EQUALS               : 
 EXCLAMATION          : 
 FALSE                : 
 FLOAT                : 
 FOR                  : 8
 GE                   : 18
-GREATERTHAN          : 
-GREATERTHANEQUAL     : 
 GT                   : 16
 IDENTIFIER           : 2 5
 IF                   : 10 11
 INDENT               : 12
 LE                   : 17
-LESSTHAN             : 
-LESSTHANEQUAL        : 
 LPAREN               : 8 9 10 11
 LT                   : 15
 MINUS                : 22
 NE                   : 14
 NONE                 : 
 NOT                  : 
-NOTEQUAL             : 
 NUMBER               : 4
 OR                   : 
 PLUS                 : 21

@@ -10,6 +10,9 @@ reserved = {
     'True': 'TRUE',
     'False': 'FALSE',
     'None': 'NONE',
+    'and': 'AND',
+    'or': 'OR',
+    'not': 'NOT'
 }
 
 tokens = [
@@ -18,25 +21,16 @@ tokens = [
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
     'LPAREN', 'RPAREN',
     'IDENTIFIER', 'ASSIGN',
-    'EQUALS', 'NOTEQUAL', 'LESSTHAN', 'GREATERTHAN', 
-    'LESSTHANEQUAL', 'GREATERTHANEQUAL',
-    'AND', 'OR', 'NOT',
+    'EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCLAMATION',
     'STRING',
     'COMMA', 'COLON', 'SEMICOLON', 
     'INDENT', 'DEDENT', 
-    'EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCLAMATION',
 ] + list(reserved.values())
 
 t_PLUS    = r'\+'
 t_MINUS   = r'-'
 t_TIMES   = r'\*'
 t_DIVIDE  = r'/'
-t_EQUALS          = r'=='
-t_NOTEQUAL        = r'!='
-t_LESSTHAN        = r'<'
-t_GREATERTHAN     = r'>'
-t_LESSTHANEQUAL   = r'<='
-t_GREATERTHANEQUAL = r'>='
 t_AND             = r'and'
 t_OR              = r'or'
 t_NOT             = r'not'
@@ -83,41 +77,21 @@ def t_ASSIGN(t):
     r'='
     return t
 
-# def t_INDENT(t):
-#     r'\t'
-#     t.lexer.column += 4
-#     print("INDENT DETECTED")
-#     if t.lexer.column > t.lexer.last_indent:
-#         t.lexer.indents.append(t.lexer.column)  # Push onto the indent stack
-#         t.type = "INDENT"    
-#     else:
-#         while t.lexer.indents and t.lexer.column < t.lexer.indents[-1]:
-#             t.lexer.indents.pop()  # Pop from the indent stack 
-#             t.type = "DEDENT" 
-#     t.lexer.last_indent = t.lexer.column
-#     return t
-
 def t_INDENT(t):
-  r'[ \t]+'  # Match one or more spaces or tabs
+  r'[ \t]+'
   t.lexer.column += len(t.value)
   print("INDENT DETECTED")
-  # No further processing needed for simple space handling (commented out)
-  # if t.lexer.column > t.lexer.last_indent:
-  #   t.lexer.indents.append(t.lexer.column)  # Push onto the indent stack
-  #   t.type = "INDENT"
-  # else:
-  #   # Handle de-indent logic if needed later
-  #   pass
   t.lexer.last_indent = t.lexer.column  # Update last indent position
   return None 
 
-def t_DEDENT(t):
-   r'CHANGE_IN_DEDENTATION'
-   pass
+def t_COMMENT(t):
+    r'\#.*'  
+    t.lexer.lineno += 1  
+    pass  
 
 def initialize_lexer_state(lexer):
-    lexer.column = 0            # Current column position
-    lexer.last_indent = 0        # Last indentation level
+    lexer.column = 0            
+    lexer.last_indent = 0        
     lexer.indents = []  
 
 def t_error(t):

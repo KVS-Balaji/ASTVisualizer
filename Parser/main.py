@@ -12,20 +12,20 @@ for tok in lexer:
     if tok.type == 'INDENT':
         print("Indent level:", len(lexer.indents), "- Column:", tok.lexer.column)
 
-result = parser.parse(data, lexer=lexer) 
+# result = parser.parse(data, lexer=lexer) 
 
-def print_ast(node, indent=0):
-    print(' ' * indent + node.type)
-    for child in node.children:
-        print_ast(child, indent + 2)
+# def print_ast(node, indent=0):
+#     print(' ' * indent + node.type)
+#     for child in node.children:
+#         print_ast(child, indent + 2)
 
-print_ast(result)
-ast_json = json.dumps(result.to_json(), indent=2)
+# print_ast(result)
+# ast_json = json.dumps(result.to_json(), indent=2)
 
-with open('./ast.json', 'w') as jsonf:
-    jsonf.write(ast_json)
+# with open('./ast.json', 'w') as jsonf:
+#     jsonf.write(ast_json)
 
-print(ast_json)
+# print(ast_json)
 
 
 #TRY THIS CODE (SUGGESTED BY CHATGPT) But i have no idea what it does
