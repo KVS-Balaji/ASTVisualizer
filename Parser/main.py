@@ -2,7 +2,7 @@ from lexer import lexer
 from pparser import parser
 import json
 
-with open(r'X:\Programs\CDSS Mini Project\ASTVisualizer\test.py', 'r') as f:
+with open(r'test.py', 'r') as f:
     data = f.read()
 
 lexer.input(data)
