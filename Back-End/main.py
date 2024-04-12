@@ -166,8 +166,6 @@ def ast_to_json(ast_node):
   else:
     return {'name': type(ast_node).__name__} # Fallback for unknown types 
 
-
-
 try:
   filename = sys.argv[1]
   with open(f'./TestFiles/{filename}.py', 'r') as f:
