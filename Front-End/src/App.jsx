@@ -27,13 +27,14 @@ const data = {
 		},
 	],
 };
-const animalsHierarchy = () => d3.hierarchy(data).sum(() => 1);
-const createTree = d3.tree().size([900, 300]);
-const animalsTree = createTree(animalsHierarchy());
+let animalsHierarchy = () => d3.hierarchy(data).sum(() => 1);
+let createTree = d3.tree().size([900, 300]);
+let animalsTree = createTree(animalsHierarchy());
 
 function App() {
 	const svgRef = useRef(null);
 	const [fileContent, setFileContent] = useState("");
+	const [astJson, setAstJson] = useState(null);
 
 	useEffect(() => {
 		// Set svg size
@@ -60,6 +61,26 @@ function App() {
 		});
 	}, []);
 
+	const runCode = async () => {
+		try {
+			const encodedFileContent = btoa(fileContent);
+			const response = await fetch("http://localhost:5000/frontend", {
+				method: "POST",
+				headers: { "Content-Type": "text/plain" },
+				body: encodedFileContent,
+			});
+
+			if (!response.ok) {
+				throw new Error(`Server error: ${response.status}`);
+			}
+
+			const astJsonData = await response.json();
+			setAstJson(astJsonData);
+		} catch (error) {
+			console.error("Error fetching or processing AST:", error);
+		}
+	};
+
 	return (
 		<div id='appcontainer'>
 			<div id='input-area'>
@@ -79,7 +100,7 @@ function App() {
 					</div>
 
 					<div id='run-btn'>
-						<button>Run</button>
+						<button onClick={runCode}>Run</button>
 					</div>
 				</div>
 				<div id='file-content'>
@@ -89,26 +110,45 @@ function App() {
 			<div id='tree-area'>
 				<svg ref={svgRef}>
 					<g transform='translate(0, 20)' id='ast'>
-						{animalsTree
-							.links()
-							.map(({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }) => (
-								<line x1={x1} y1={y1} x2={x2} y2={y2} stroke='black' />
-							))}
-						{animalsTree.descendants().map(({ x, y, data: { name } }) => (
-							<g key={name}>
-								<circle cx={x} cy={y} r={10} fill='white' stroke='black' />
-								<text
-									x={x}
-									y={y}
-									textAnchor='middle'
-									dominantBaseline='central'
-									fontSize='10px'
-									fill='black'
-								>
-									{name}
-								</text>
-							</g>
-						))}
+						{astJson ? (
+							<>
+								{animalsTree
+									.links()
+									.map(
+										({
+											source: { x: x1, y: y1 },
+											target: { x: x2, y: y2 },
+										}) => (
+											<line x1={x1} y1={y1} x2={x2} y2={y2} stroke='black' />
+										)
+									)}
+								{animalsTree.descendants().map(({ x, y, data: { name } }) => (
+									<g key={name}>
+										<circle cx={x} cy={y} r={10} fill='white' stroke='black' />
+										<text
+											x={x}
+											y={y}
+											textAnchor='middle'
+											dominantBaseline='central'
+											fontSize='10px'
+											fill='black'
+										>
+											{name}
+										</text>
+									</g>
+								))}
+							</>
+						) : (
+							<text
+								x='450'
+								y='150'
+								textAnchor='middle'
+								fontSize='20px'
+								fill='white'
+							>
+								No input data
+							</text>
+						)}
 					</g>
 				</svg>
 			</div>

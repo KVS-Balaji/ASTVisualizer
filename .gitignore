@@ -15,6 +15,7 @@ TestPage
 main2.py
 test.json
 ast.json
+test.py
 # Editor directories and files
 __pycache__
 .vscode/*

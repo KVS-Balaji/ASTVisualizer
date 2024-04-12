@@ -167,8 +167,9 @@ def ast_to_json(ast_node):
     return {'name': type(ast_node).__name__} # Fallback for unknown types 
 
 try:
-  filename = sys.argv[1]
-  with open(f'./TestFiles/{filename}.py', 'r') as f:
+  # filename = sys.argv[1]
+  filename = "test"
+  with open(f'./{filename}.py', 'r') as f:
     data = f.read()
 except:
   print('No file input given')
