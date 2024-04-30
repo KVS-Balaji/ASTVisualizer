@@ -25,16 +25,92 @@ const data = {
 				},
 			],
 		},
+		{
+			name: "If",
+			children: [
+				{
+					name: ["=="],
+					children: [
+						{
+							name: "a",
+						},
+						{
+							name: "15",
+						},
+					],
+				},
+				{
+					name: "If Body",
+					children: [
+						{
+							name: "print",
+							children: [
+								{
+									name: "a is 15",
+								},
+							],
+						},
+					],
+				},
+				{
+					name: "Else Body",
+					children: [
+						{
+							name: "If",
+							children: [
+								{
+									name: ["=="],
+									children: [
+										{
+											name: "a",
+										},
+										{
+											name: "10",
+										},
+									],
+								},
+								{
+									name: "If Body",
+									children: [
+										{
+											name: "print",
+											children: [
+												{
+													name: "a is 10",
+												},
+											],
+										},
+									],
+								},
+								{
+									name: "Else Body",
+									children: [
+										{
+											name: "print",
+											children: [
+												{
+													name: "a is some random value",
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		},
 	],
 };
-let animalsHierarchy = () => d3.hierarchy(data).sum(() => 1);
-let createTree = d3.tree().size([900, 300]);
-let animalsTree = createTree(animalsHierarchy());
+let astHierarchy = () => d3.hierarchy(data).sum(() => 1);
+let createAST = d3.tree().size([900, 300]);
+let AbstractSyntaxTree = createAST(astHierarchy());
 
 function App() {
 	const svgRef = useRef(null);
 	const [fileContent, setFileContent] = useState("");
-	const [astJson, setAstJson] = useState(null);
+	const [astJson, setAstJson] = useState(data);
 
 	useEffect(() => {
 		// Set svg size
@@ -76,6 +152,7 @@ function App() {
 
 			const astJsonData = await response.json();
 			setAstJson(astJsonData);
+			console.log(astJsonData);
 		} catch (error) {
 			console.error("Error fetching or processing AST:", error);
 		}
@@ -112,31 +189,28 @@ function App() {
 					<g transform='translate(0, 20)' id='ast'>
 						{astJson ? (
 							<>
-								{animalsTree
-									.links()
-									.map(
-										({
-											source: { x: x1, y: y1 },
-											target: { x: x2, y: y2 },
-										}) => (
-											<line x1={x1} y1={y1} x2={x2} y2={y2} stroke='black' />
-										)
-									)}
-								{animalsTree.descendants().map(({ x, y, data: { name } }) => (
-									<g key={name}>
-										<circle cx={x} cy={y} r={10} fill='white' stroke='black' />
-										<text
-											x={x}
-											y={y}
-											textAnchor='middle'
-											dominantBaseline='central'
-											fontSize='10px'
-											fill='black'
-										>
-											{name}
-										</text>
-									</g>
-								))}
+								{AbstractSyntaxTree.links().map(
+									({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }) => (
+										<line x1={x1} y1={y1} x2={x2} y2={y2} stroke='black' />
+									)
+								)}
+								{AbstractSyntaxTree.descendants().map(
+									({ x, y, data: { name } }) => (
+										<g key={name}>
+											<circle cx={x} cy={y} r={10} fill='none' stroke='white' />
+											<text
+												x={x}
+												y={y}
+												textAnchor='middle'
+												dominantBaseline='central'
+												fontSize='10px'
+												fill='white'
+											>
+												{name}
+											</text>
+										</g>
+									)
+								)}
 							</>
 						) : (
 							<text
