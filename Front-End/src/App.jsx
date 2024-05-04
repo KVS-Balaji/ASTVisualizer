@@ -110,7 +110,7 @@ let AbstractSyntaxTree = createAST(astHierarchy());
 function App() {
 	const svgRef = useRef(null);
 	const [fileContent, setFileContent] = useState("");
-	const [astJson, setAstJson] = useState(data);
+	const [astJson, setAstJson] = useState("");
 
 	useEffect(() => {
 		// Set svg size
@@ -160,71 +160,85 @@ function App() {
 
 	return (
 		<div id='appcontainer'>
-			<div id='input-area'>
-				<div id='buttons'>
-					<div id='file-upload'>
-						<input
-							type='file'
-							id='file-input'
-							accept='.py'
-							style={{ display: "none" }}
-						/>
-						<button
-							onClick={() => document.getElementById("file-input").click()}
-						>
-							Upload Files
-						</button>
-					</div>
-
-					<div id='run-btn'>
-						<button onClick={runCode}>Run</button>
-					</div>
-				</div>
-				<div id='file-content'>
-					<textarea value={fileContent} readOnly></textarea>
-				</div>
+			<div id='heading'>
+				<p>AST Visualizer</p>
 			</div>
-			<div id='tree-area'>
-				<svg ref={svgRef}>
-					<g transform='translate(0, 20)' id='ast'>
-						{astJson ? (
-							<>
-								{AbstractSyntaxTree.links().map(
-									({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }) => (
-										<line x1={x1} y1={y1} x2={x2} y2={y2} stroke='black' />
-									)
-								)}
-								{AbstractSyntaxTree.descendants().map(
-									({ x, y, data: { name } }) => (
-										<g key={name}>
-											<circle cx={x} cy={y} r={10} fill='none' stroke='white' />
-											<text
-												x={x}
-												y={y}
-												textAnchor='middle'
-												dominantBaseline='central'
-												fontSize='10px'
-												fill='white'
-											>
-												{name}
-											</text>
-										</g>
-									)
-								)}
-							</>
-						) : (
-							<text
-								x='450'
-								y='150'
-								textAnchor='middle'
-								fontSize='20px'
-								fill='white'
+			<div id='maincontent'>
+				<div id='input-area'>
+					<div id='buttons'>
+						<div id='file-upload'>
+							<input
+								type='file'
+								id='file-input'
+								accept='.py'
+								style={{ display: "none" }}
+							/>
+							<button
+								onClick={() => document.getElementById("file-input").click()}
 							>
-								No input data
-							</text>
-						)}
-					</g>
-				</svg>
+								Upload Files
+							</button>
+						</div>
+
+						<div id='run-btn'>
+							<button onClick={runCode}>Run</button>
+						</div>
+					</div>
+					<div id='file-content'>
+						<textarea value={fileContent} readOnly></textarea>
+					</div>
+				</div>
+				<div id='tree-area'>
+					<svg ref={svgRef}>
+						<g transform='translate(0, 20)' id='ast'>
+							{astJson ? (
+								<>
+									{AbstractSyntaxTree.links().map(
+										({
+											source: { x: x1, y: y1 },
+											target: { x: x2, y: y2 },
+										}) => (
+											<line x1={x1} y1={y1} x2={x2} y2={y2} stroke='black' />
+										)
+									)}
+									{AbstractSyntaxTree.descendants().map(
+										({ x, y, data: { name } }) => (
+											<g key={name}>
+												<circle
+													cx={x}
+													cy={y}
+													r={10}
+													fill='none'
+													stroke='white'
+												/>
+												<text
+													x={x}
+													y={y}
+													textAnchor='middle'
+													dominantBaseline='central'
+													fontSize='10px'
+													fill='white'
+												>
+													{name}
+												</text>
+											</g>
+										)
+									)}
+								</>
+							) : (
+								<text
+									x='450'
+									y='150'
+									textAnchor='middle'
+									fontSize='20px'
+									fill='white'
+								>
+									No input data
+								</text>
+							)}
+						</g>
+					</svg>
+				</div>
 			</div>
 		</div>
 	);

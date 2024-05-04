@@ -1,7 +1,28 @@
 #appcontainer {
     display: flex;
+    flex-direction: column;
     height: 100vh;
-    justify-content: space-between;
+}
+
+#heading {
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+#heading p {
+    margin: 0;
+}
+
+#maincontent {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100%;
 }
 
 #input-area, #tree-area {
