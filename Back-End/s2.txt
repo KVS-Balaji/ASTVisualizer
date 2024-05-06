@@ -1,12 +1,4 @@
-/* eslint-disable react/jsx-key */
-import * as d3 from "d3";
-import "./App.css";
-import { useRef, useEffect, useState } from "react";
-
-const data = {
-  "name": "Program",
-  "children": []
-};
+;
 
 let astHierarchy = () => d3.hierarchy(data).sum(() => 1);
 let createAST = d3.tree().size([900, 600]);
