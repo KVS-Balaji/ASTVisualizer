@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: #555;
+    /* background: url('./bg.gif');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; */
 }
 
 #heading {
@@ -31,6 +36,8 @@
 
 #tree-area {
     overflow: auto;
+    background-color: #0404048a;
+    height: 93.5vh;
 }
 
 #input-area {
@@ -44,7 +51,7 @@
     height: 5%;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #buttons button {
@@ -85,19 +92,20 @@
     height: 100%;
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    padding: 0;
 }
 
 #file-content textarea{
-    height: 85vh;
+    height: 88vh;
     width: 95%;
     resize: none;
-    background-color: #444;
+    background-color: #0404048a;
     color: white;
     overflow: auto;
     cursor: default;
-    padding: 10px;
     outline: none;
     border: 1px solid black;
     font-size: 16px;

@@ -1,8 +1,12 @@
 ;
-
-let astHierarchy = () => d3.hierarchy(data).sum(() => 1);
-let createAST = d3.tree().size([900, 600]);
-let AbstractSyntaxTree = createAST(astHierarchy());
+let astHierarchy;
+let createAST;
+let AbstractSyntaxTree;
+if (data) {
+	astHierarchy = () => d3.hierarchy(data).sum(() => 1);
+	createAST = d3.tree().size([900, 600]);
+	AbstractSyntaxTree = createAST(astHierarchy());
+}
 
 function App() {
 	const svgRef = useRef(null);
@@ -62,6 +66,9 @@ function App() {
 			</div>
 			<div id='maincontent'>
 				<div id='input-area'>
+					<div id='file-content'>
+						<textarea value={fileContent} readOnly></textarea>
+					</div>
 					<div id='buttons'>
 						<div id='file-upload'>
 							<input
@@ -81,9 +88,6 @@ function App() {
 							<button onClick={runCode}>Run</button>
 						</div>
 					</div>
-					<div id='file-content'>
-						<textarea value={fileContent} readOnly></textarea>
-					</div>
 				</div>
 				<div id='tree-area'>
 					<svg ref={svgRef}>
@@ -102,6 +106,7 @@ function App() {
 												x2={x2}
 												y2={y2}
 												stroke='white'
+												strokeWidth={3}
 											/>
 										)
 									)}
@@ -112,7 +117,7 @@ function App() {
 													cx={x}
 													cy={y}
 													r={20}
-													fill='none'
+													fill='white'
 													stroke='white'
 												/>
 												<text
@@ -120,8 +125,9 @@ function App() {
 													y={y}
 													textAnchor='middle'
 													dominantBaseline='central'
-													fontSize='10px'
-													fill='white'
+													fontSize='15px'
+													fontWeight={700}
+													fill='black'
 												>
 													{name}
 												</text>

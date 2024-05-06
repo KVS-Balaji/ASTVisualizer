@@ -5,12 +5,335 @@ import { useRef, useEffect, useState } from "react";
 
 const data = {
   "name": "Program",
-  "children": []
+  "children": [
+    {
+      "name": "Function",
+      "children": [
+        {
+          "name": "Name",
+          "children": [
+            {
+              "name": "factorial"
+            }
+          ]
+        },
+        {
+          "name": "Arguments",
+          "children": [
+            {
+              "name": "n"
+            }
+          ]
+        },
+        {
+          "name": "Body",
+          "children": [
+            {
+              "name": "If",
+              "children": [
+                {
+                  "name": [
+                    "=="
+                  ],
+                  "children": [
+                    {
+                      "name": "n"
+                    },
+                    {
+                      "name": "0"
+                    }
+                  ]
+                },
+                {
+                  "name": "If Body",
+                  "children": [
+                    {
+                      "name": "Return",
+                      "children": [
+                        {
+                          "name": "1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Else Body",
+                  "children": [
+                    {
+                      "name": "=",
+                      "children": [
+                        {
+                          "name": "result"
+                        },
+                        {
+                          "name": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "For",
+                      "children": [
+                        {
+                          "name": "i"
+                        },
+                        {
+                          "name": "Iterable",
+                          "children": [
+                            {
+                              "name": "range",
+                              "children": [
+                                {
+                                  "name": "1"
+                                },
+                                {
+                                  "name": "+",
+                                  "children": [
+                                    {
+                                      "name": "n"
+                                    },
+                                    {
+                                      "name": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Loop Body",
+                          "children": [
+                            {
+                              "name": "*=",
+                              "children": [
+                                {
+                                  "name": "result"
+                                },
+                                {
+                                  "name": "i"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Return",
+                      "children": [
+                        {
+                          "name": "result"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Try",
+      "children": [
+        {
+          "name": "Try Body",
+          "children": [
+            {
+              "name": "=",
+              "children": [
+                {
+                  "name": "num"
+                },
+                {
+                  "name": "int",
+                  "children": [
+                    {
+                      "name": "input",
+                      "children": [
+                        {
+                          "name": "Enter a non-negative number: "
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "If",
+              "children": [
+                {
+                  "name": [
+                    "<"
+                  ],
+                  "children": [
+                    {
+                      "name": "num"
+                    },
+                    {
+                      "name": "0"
+                    }
+                  ]
+                },
+                {
+                  "name": "If Body",
+                  "children": [
+                    {
+                      "name": "print",
+                      "children": [
+                        {
+                          "name": "Factorial is not defined for negative numbers."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Else Body",
+                  "children": [
+                    {
+                      "name": "=",
+                      "children": [
+                        {
+                          "name": "fact"
+                        },
+                        {
+                          "name": "factorial",
+                          "children": [
+                            {
+                              "name": "num"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "print",
+                      "children": [
+                        {
+                          "name": "Factorial of"
+                        },
+                        {
+                          "name": "num"
+                        },
+                        {
+                          "name": "is"
+                        },
+                        {
+                          "name": "fact"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Except",
+          "children": [
+            {
+              "name": "Exception Type",
+              "children": [
+                {
+                  "name": "ValueError"
+                }
+              ]
+            },
+            {
+              "name": "Except Body",
+              "children": [
+                {
+                  "name": "print",
+                  "children": [
+                    {
+                      "name": "Invalid input. Please enter an integer."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Else",
+          "children": []
+        },
+        {
+          "name": "Finally",
+          "children": [
+            {
+              "name": "print",
+              "children": [
+                {
+                  "name": "Calculation complete."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "=",
+      "children": [
+        {
+          "name": "result"
+        },
+        {
+          "name": "+",
+          "children": [
+            {
+              "name": "//",
+              "children": [
+                {
+                  "name": "*",
+                  "children": [
+                    {
+                      "name": "5"
+                    },
+                    {
+                      "name": "3"
+                    }
+                  ]
+                },
+                {
+                  "name": "2"
+                }
+              ]
+            },
+            {
+              "name": "8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "print",
+      "children": [
+        {
+          "name": "Result of expression:"
+        },
+        {
+          "name": "result"
+        }
+      ]
+    }
+  ]
 };
-
-let astHierarchy = () => d3.hierarchy(data).sum(() => 1);
-let createAST = d3.tree().size([900, 600]);
-let AbstractSyntaxTree = createAST(astHierarchy());
+let astHierarchy;
+let createAST;
+let AbstractSyntaxTree;
+if (data) {
+	astHierarchy = () => d3.hierarchy(data).sum(() => 1);
+	createAST = d3.tree().size([900, 600]);
+	AbstractSyntaxTree = createAST(astHierarchy());
+}
 
 function App() {
 	const svgRef = useRef(null);
@@ -70,6 +393,9 @@ function App() {
 			</div>
 			<div id='maincontent'>
 				<div id='input-area'>
+					<div id='file-content'>
+						<textarea value={fileContent} readOnly></textarea>
+					</div>
 					<div id='buttons'>
 						<div id='file-upload'>
 							<input
@@ -89,9 +415,6 @@ function App() {
 							<button onClick={runCode}>Run</button>
 						</div>
 					</div>
-					<div id='file-content'>
-						<textarea value={fileContent} readOnly></textarea>
-					</div>
 				</div>
 				<div id='tree-area'>
 					<svg ref={svgRef}>
@@ -110,6 +433,7 @@ function App() {
 												x2={x2}
 												y2={y2}
 												stroke='white'
+												strokeWidth={3}
 											/>
 										)
 									)}
@@ -120,7 +444,7 @@ function App() {
 													cx={x}
 													cy={y}
 													r={20}
-													fill='none'
+													fill='white'
 													stroke='white'
 												/>
 												<text
@@ -128,8 +452,9 @@ function App() {
 													y={y}
 													textAnchor='middle'
 													dominantBaseline='central'
-													fontSize='10px'
-													fill='white'
+													fontSize='15px'
+													fontWeight={700}
+													fill='black'
 												>
 													{name}
 												</text>

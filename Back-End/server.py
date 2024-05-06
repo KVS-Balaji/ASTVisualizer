@@ -7,11 +7,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/frontend', methods=['POST'])
-def frontend():
-    code = request.get_data().decode('utf-8')  
-    decoded_code = base64.b64decode(code).decode('utf-8')
-    
+def getPath():
     cwd = os.getcwd()
     if (cwd.__contains__("ASTVisualizer") == False):
         cwd += "/ASTVisualizer"
@@ -23,6 +19,14 @@ def frontend():
     os.chdir(cwd)
 
     print(cwd)
+    return cwd
+
+@app.route('/frontend', methods=['POST'])
+def frontend():
+    code = request.get_data().decode('utf-8')  
+    decoded_code = base64.b64decode(code).decode('utf-8')
+    
+    cwd = getPath()
     with open(f'{cwd}/test.py', 'w') as f:
         f.write(decoded_code)
     subprocess.run(['python3', 'main.py'])
@@ -36,7 +40,6 @@ def frontend():
     appjsx.write(appcode)
 
     return "Done"
-
 
 if __name__ == '__main__':
     app.run(debug=True) 
